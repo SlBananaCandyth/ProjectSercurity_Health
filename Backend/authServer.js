@@ -82,11 +82,10 @@ app.post("/users/login", async (req, res) => {
     }
     try {
       if (await bcrypt.compare(req.body.password, results[0].password)) {
-        const accessToken = jwt.sign(
-          { email: results[0].email },
-          process.env.ACCESS_TOKEN_SECRET
-        );
-        res.json({ accessToken: accessToken });
+        const accessToken = generateAccessToken({ email: results[0].password });
+        const refreshToken = jwt.sign({ email: results[0].password }, process.env.REFRESH_TOKEN_SECRET);
+
+        res.json({ accessToken: accessToken, refreshToken: refreshToken});
         res.send("Logged In");
       } else {
         res.send("Not Allowed");
@@ -107,6 +106,10 @@ function authenticateToken(req, res, next) {
     req.user = user;
     next();
   });
+}
+
+function generateAccessToken(user) {
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "120s" });
 }
 
 server.listen(port, () => {
