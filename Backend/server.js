@@ -61,8 +61,8 @@ app.get("/users", (req, res) => {
 app.post("/users/register", async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    var sql = "INSERT INTO users (name, email, password) VALUES ?";
-    var values = [[req.body.name, req.body.email, hashedPassword]];
+    var sql = "INSERT INTO users (email, password) VALUES ?";
+    var values = [[req.body.email, hashedPassword]];
 
     con.query(sql, [values], function (err, results) {
       if (err) throw err;
@@ -72,6 +72,37 @@ app.post("/users/register", async (req, res) => {
     res.status(500).send();
   }
 });
+
+app.post("/users/login", async (req, res) => {
+  var sql = "SELECT * FROM users WHERE email = ?";
+  con.query(sql, [req.body.email], async function (err, results) {
+    if (err) throw err;
+    if (results.length == 0) {
+      return res.status(400).send("Cannot find user");
+    }
+    try {
+      if (await bcrypt.compare(req.body.password, results[0].password)) {
+        res.send("Logged In");
+      } else {
+        res.send("Not Allowed");
+      }
+    } catch {
+      res.status(500).send();
+    }
+  });
+});
+
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+  if (token == null) return res.sendStatus(401);
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403);
+    req.user = user;
+    next();
+  });
+}
 
 server.listen(port, () => {
   console.log(`Server is listening on https://localhost:${port}`);
