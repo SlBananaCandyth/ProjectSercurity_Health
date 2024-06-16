@@ -7,6 +7,11 @@ git branch -M main
 git remote add origin https://github.com/Phu-not-Phu/ProjectSercurity_Health.git
 git push -u origin main
 
+Install React:
+npm install -g create-react-app
+npx create-react-app
+npm start
+
 Install mysql lib:
 npm install express 
 npm install cors
