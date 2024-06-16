@@ -1,5 +1,12 @@
 # Những thứ cần install trong cmd
 
+Install Git:
+git init
+git commit -m "first commit”
+git branch -M main
+git remote add origin https://github.com/Phu-not-Phu/ProjectSercurity_Health.git
+git push -u origin main
+
 Install mysql lib:
 npm install express 
 npm install cors
