@@ -50,6 +50,19 @@ con.connect(function (err) {
 });
 
 //WebAPI
+let refreshTokens = [];
+
+app.post("/users/token", (req, res) => {
+  const refreshToken = req.body.token;
+  if (refreshToken == null) return res.sendStatus(401);
+  if (!refreshTokens.includes(refreshToken)) return res.sendStatus(403);
+  jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403);
+    const accessToken = generateAccessToken({ email: user.email });
+    res.json({ accessToken: accessToken });
+  });
+});
+
 app.get("/users", authenticateToken, (req, res) => {
   var sql = "SELECT * FROM users";
   con.query(sql, function (err, results) {
@@ -83,9 +96,13 @@ app.post("/users/login", async (req, res) => {
     try {
       if (await bcrypt.compare(req.body.password, results[0].password)) {
         const accessToken = generateAccessToken({ email: results[0].password });
-        const refreshToken = jwt.sign({ email: results[0].password }, process.env.REFRESH_TOKEN_SECRET);
+        const refreshToken = jwt.sign(
+          { email: results[0].password },
+          process.env.REFRESH_TOKEN_SECRET
+        );
+        refreshTokens.push(refreshToken);
 
-        res.json({ accessToken: accessToken, refreshToken: refreshToken});
+        res.json({ accessToken: accessToken, refreshToken: refreshToken });
         res.send("Logged In");
       } else {
         res.send("Not Allowed");
@@ -94,6 +111,11 @@ app.post("/users/login", async (req, res) => {
       res.status(500).send();
     }
   });
+});
+
+app.delete("/users/logout", (req, res) => {
+  refreshTokens = refreshTokens.filter((token) => token !== req.body.token);
+  res.sendStatus(204);
 });
 
 function authenticateToken(req, res, next) {
