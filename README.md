@@ -9,7 +9,7 @@ git push -u origin main
 
 Install React:
 npm install -g create-react-app
-npx create-react-app
+npx create-react-app <project_name>
 npm start
 
 Install mysql lib:
