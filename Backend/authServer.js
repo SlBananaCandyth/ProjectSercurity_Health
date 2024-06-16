@@ -2,7 +2,6 @@
 const fs = require("fs");
 const key = fs.readFileSync("./SSL/localhost/localhost.decrypted.key");
 const cert = fs.readFileSync("./SSL/localhost/localhost.crt");
-const rsa_private_key = fs.readFileSync("./SSL/jwt/jwtRS256.key");
 
 const express = require("express");
 const app = express();
@@ -19,12 +18,13 @@ const mysql = require("mysql2");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const server = https.createServer({ key, cert}, app);
+const server = https.createServer({ key, cert }, app);
 
 app.use(cors());
 app.use(express.static("public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 
 //Database connection
 const password = "danghomp69";
@@ -57,7 +57,7 @@ app.post("/users/token", (req, res) => {
   const refreshToken = req.body.token;
   if (refreshToken == null) return res.sendStatus(401);
   if (!refreshTokens.includes(refreshToken)) return res.sendStatus(403);
-  jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+  jwt.verify(refreshToken, process.env.REFRESH_SECRET_TOKEN, (err, user) => {
     if (err) return res.sendStatus(403);
     const accessToken = generateAccessToken({ email: user.email });
     res.json({ accessToken: accessToken });
@@ -65,6 +65,14 @@ app.post("/users/token", (req, res) => {
 });
 
 app.get("/users", (req, res) => {
+  var sql = "SELECT * FROM user LIMIT 5";
+  con.query(sql, function (err, results) {
+    if (err) throw err;
+    res.send(results);
+  });
+});
+
+app.get("/users/auths", authenticateToken, (req, res) => {
   var sql = "SELECT * FROM user";
   con.query(sql, function (err, results) {
     if (err) throw err;
@@ -72,19 +80,11 @@ app.get("/users", (req, res) => {
   });
 });
 
-// app.get("/users", authenticateToken, (req, res) => {
-//   var sql = "SELECT * FROM user";
-//   con.query(sql, function (err, results) {
-//     if (err) throw err;
-//     res.send(results);
-//   });
-// });
-
 app.post("/users/register", async (req, res) => {
   try {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    var sql = "INSERT INTO users (email, password) VALUES ?";
-    var values = [[req.body.email, hashedPassword]];
+    const hashedPassword = await bcrypt.hash(req.body.encrypted_password, 10);
+    var sql = "INSERT INTO user (user_email, encrypted_password) VALUES ?";
+    var values = [[req.body.user_email, hashedPassword]];
 
     con.query(sql, [values], function (err, results) {
       if (err) throw err;
@@ -96,23 +96,28 @@ app.post("/users/register", async (req, res) => {
 });
 
 app.post("/users/login", async (req, res) => {
-  var sql = "SELECT * FROM users WHERE email = ?";
-  con.query(sql, [req.body.email], async function (err, results) {
+  var sql = "SELECT * FROM user WHERE user_email = ?";
+  con.query(sql, [req.body.user_email], async function (err, results) {
     if (err) throw err;
     if (results.length == 0) {
       return res.status(400).send("Cannot find user");
     }
     try {
-      if (await bcrypt.compare(req.body.password, results[0].password)) {
-        const accessToken = generateAccessToken({ email: results[0].password });
-        const refreshToken = jwt.sign(
-          { email: results[0].password },
-          process.env.REFRESH_TOKEN_SECRET,
-          rsa_private_key,
-          { algorithm: "RS256" }
-        );
-        refreshTokens.push(refreshToken);
+      if (
+        await bcrypt.compare(
+          req.body.encrypted_password,
+          results[0].encrypted_password
+        )
+      ) {
+        let user = {
+          user_email: results[0].user_email,
+          encrypted_password: results[0].encrypted_password,
+        };
 
+        const accessToken = generateAccessToken(user);
+        const refreshToken = jwt.sign(user, process.env.REFRESH_SECRET_TOKEN);
+
+        refreshTokens.push(refreshToken);
         res.json({ accessToken: accessToken, refreshToken: refreshToken });
         res.send("Logged In");
       } else {
@@ -134,7 +139,7 @@ function authenticateToken(req, res, next) {
   const token = authHeader && authHeader.split(" ")[1];
   if (token == null) return res.sendStatus(401);
 
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+  jwt.verify(token, process.env.ACCESS_SECRET_TOKEN, (err, user) => {
     if (err) return res.sendStatus(403);
     req.user = user;
     next();
@@ -142,9 +147,8 @@ function authenticateToken(req, res, next) {
 }
 
 function generateAccessToken(user) {
-  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, rsa_private_key, {
+  return jwt.sign(user, process.env.ACCESS_SECRET_TOKEN, {
     expiresIn: "120s",
-    algorithm: "RS256",
   });
 }
 
