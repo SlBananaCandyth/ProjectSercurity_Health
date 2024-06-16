@@ -50,7 +50,7 @@ con.connect(function (err) {
 });
 
 //WebAPI
-app.get("/users", (req, res) => {
+app.get("/users", authenticateToken, (req, res) => {
   var sql = "SELECT * FROM users";
   con.query(sql, function (err, results) {
     if (err) throw err;
@@ -82,6 +82,11 @@ app.post("/users/login", async (req, res) => {
     }
     try {
       if (await bcrypt.compare(req.body.password, results[0].password)) {
+        const accessToken = jwt.sign(
+          { email: results[0].email },
+          process.env.ACCESS_TOKEN_SECRET
+        );
+        res.json({ accessToken: accessToken });
         res.send("Logged In");
       } else {
         res.send("Not Allowed");
