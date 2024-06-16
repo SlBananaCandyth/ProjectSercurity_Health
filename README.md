@@ -14,6 +14,7 @@ npm start
 
 Install mysql lib:
 npm install express 
+npm install express https
 npm install cors
 npm install body-parser --save 
 npm install nodemon 
