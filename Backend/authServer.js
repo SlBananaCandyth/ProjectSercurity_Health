@@ -1,7 +1,8 @@
 //SSL Certificate
 const fs = require("fs");
-const key = fs.readFileSync("./localhost/localhost.decrypted.key");
-const cert = fs.readFileSync("./localhost/localhost.crt");
+const key = fs.readFileSync("./SSL/localhost/localhost.decrypted.key");
+const cert = fs.readFileSync("./SSL/localhost/localhost.crt");
+const rsa_private_key = fs.readFileSync("./SSL/jwt/jwtRS256.key");
 
 const express = require("express");
 const app = express();
@@ -18,7 +19,7 @@ const mysql = require("mysql2");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const server = https.createServer({ key, cert }, app);
+const server = https.createServer({ key, cert}, app);
 
 app.use(cors());
 app.use(express.static("public"));
@@ -26,9 +27,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //Database connection
-const password = "";
-const database = "";
-const table_name = "";
+const password = "danghomp69";
+const database = "health_user_db";
+const table_name = "user";
 
 var con = mysql.createConnection({
   host: "localhost",
@@ -42,11 +43,11 @@ var con = mysql.createConnection({
 con.connect(function (err) {
   if (err) throw err;
   console.log("Connected!!!");
-  var sql = "select * from" + table_name;
-  con.query(sql, function (err, results) {
-    if (err) throw err;
-    console.log(results);
-  });
+  // var sql = "select * from " + table_name;
+  // con.query(sql, function (err, results) {
+  //   if (err) throw err;
+  //   console.log(results);
+  // });
 });
 
 //WebAPI
@@ -63,13 +64,21 @@ app.post("/users/token", (req, res) => {
   });
 });
 
-app.get("/users", authenticateToken, (req, res) => {
-  var sql = "SELECT * FROM users";
+app.get("/users", (req, res) => {
+  var sql = "SELECT * FROM user";
   con.query(sql, function (err, results) {
     if (err) throw err;
     res.send(results);
   });
 });
+
+// app.get("/users", authenticateToken, (req, res) => {
+//   var sql = "SELECT * FROM user";
+//   con.query(sql, function (err, results) {
+//     if (err) throw err;
+//     res.send(results);
+//   });
+// });
 
 app.post("/users/register", async (req, res) => {
   try {
@@ -98,7 +107,9 @@ app.post("/users/login", async (req, res) => {
         const accessToken = generateAccessToken({ email: results[0].password });
         const refreshToken = jwt.sign(
           { email: results[0].password },
-          process.env.REFRESH_TOKEN_SECRET
+          process.env.REFRESH_TOKEN_SECRET,
+          rsa_private_key,
+          { algorithm: "RS256" }
         );
         refreshTokens.push(refreshToken);
 
@@ -131,7 +142,10 @@ function authenticateToken(req, res, next) {
 }
 
 function generateAccessToken(user) {
-  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "120s" });
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, rsa_private_key, {
+    expiresIn: "120s",
+    algorithm: "RS256",
+  });
 }
 
 server.listen(port, () => {
