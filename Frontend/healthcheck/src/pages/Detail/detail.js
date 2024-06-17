@@ -1,0 +1,44 @@
+import "./Detail.css";
+import search from "./logos_figma/search.svg";
+import mapBackground from "./logos_figma/mapBackground.png";
+
+
+function Detail(){
+  
+  return (
+    <div className="container">
+        <div class="demo-detail">
+          <img class="map" alt="" src={mapBackground}></img>
+          <div class="blur_layer"></div>
+
+          {/*Này thì tính làm searchbox mà chỉnh hoài không ra*/}
+          {/* <div class="search-box">
+            <img class="search" alt="" src={search}></img>
+            <input></input>
+          </div> */}
+          
+          {/*Nay là hàng chữ nội dung á (record_time đồ)*/}    
+          <div class="contents">
+            <div class="record-time">Record_time</div>
+            <div class="alcohol-concentration">Alcohol_concentration</div>
+            <div class="record-time">Temperature</div>
+            <div class="record-time">Cordinate</div>
+            <div class="record-time">Speed/second</div>
+            <div class="record-time">Heading</div>
+          </div>
+
+          <div class="hr"></div> {/*Này là cái đường kẻ thẳng á, <hr> á*/}
+          
+          {/*Còn mấy cái div dưới là mấy cái ô hiển thị thông tin xuất ra*/}
+          <div class="demo-detail-item"></div>
+          <div class="demo-detail-inner"></div>
+          <div class="rectangle-div"></div>
+          <div class="demo-detail-child1"></div>
+          <div class="demo-detail-child2"></div>
+          <div class="demo-detail-child3"></div>
+        </div>
+    </div>
+  );
+}
+
+export default Detail;
