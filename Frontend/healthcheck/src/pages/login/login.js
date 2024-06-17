@@ -3,10 +3,6 @@ import mapBackground from "../../icon/mapBackground.png";
 import mail from "../../icon/envelope-closed 1.svg";
 import lock from "../../icon/lock 1.svg";
 
-import { useState, useRef, useEffect, useContext } from "react";
-import AuthContext from "../../context/authProvider";
-import axios from "axios";
-import { Navigate } from "react-router-dom";
 
 function Login() {
   const { setAuth } = useContext(AuthContext);
