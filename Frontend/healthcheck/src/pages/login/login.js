@@ -2,24 +2,24 @@ import "./login.css";
 import mapBackground from "../icon/mapBackground.png";
 import mail from "../icon/envelope-closed 1.svg";
 import lock from "../icon/lock 1.svg";
-import { useNavigate } from "react-router-dom";
 
 import { useState, useEffect, useRef, useContext } from "react";
 import axios from "axios";
-import AuthContext from "../../context/authProvider";
-import { Navigate } from "react-router-dom";
+import { Navigate, Link, useNavigate, useLocation } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 function Login() {
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth } = useAuth();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
   const userRef = useRef();
   const errRef = useRef();
 
-  const error = false;
-
   const [user_email, setEmail] = useState("");
   const [encrypted_password, setPassword] = useState("");
-  const [navigate, setNavaigate] = useState(false);
-  const [success, setSucess] = useState(false);
   const [errMsg, setErrMsg] = useState("");
 
   useEffect(() => {
@@ -41,14 +41,15 @@ function Login() {
           withCredentials: false,
         }
       );
-      console.log(JSON.stringify(response?.data));
+      // console.log(JSON.stringify(response?.data));
       const accessToken = response?.data?.accessToken;
+      console.log(accessToken);
 
       setAuth({ user_email, encrypted_password, accessToken });
       setEmail("");
       setPassword("");
-      setSucess(true);
-      setNavaigate(true);
+
+      navigate(from);
     } catch (err) {
       if (!err?.response) {
         setErrMsg("Server is offline");
@@ -63,14 +64,9 @@ function Login() {
     }
   };
 
-  const navigateReg = useNavigate();
   const handleRegisterClick = () => {
-    navigateReg("../Register");
+    navigate("../Register");
   };
-  
-  if (navigate) {
-    return <Navigate to="/" />;
-  }
 
   return (
     <div className="container">
@@ -80,24 +76,6 @@ function Login() {
         <div class="demo-login-child"></div>
 
         <b class="welcome-back">Welcome back</b>
-
-        <>
-          {success ? (
-            <section>
-              <h1>Logged in successfully</h1>
-            </section>
-          ) : (
-            <section>
-              <p
-                ref={errRef}
-                className={errMsg ? "errmsg" : "offscreen"}
-                aria-live="assertive"
-              >
-                {errMsg}
-              </p>
-            </section>
-          )}
-        </>
 
         <form onSubmit={submit}>
           <div class="email-input">
@@ -148,6 +126,3 @@ function Login() {
 }
 
 export default Login;
-
-
-

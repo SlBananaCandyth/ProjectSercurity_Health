@@ -1,19 +1,24 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
+import AuthContext from "../../context/authProvider";
 
 function Users() {
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState([]);
+  const { auth } = useContext(AuthContext);
 
   useEffect(() => {
     let isMounted = true;
     const controller = new AbortController();
+    console.log(auth);
 
     const getUsers = async () => {
       try {
+        console.log(auth.accessToken);
+
         const respone = await axios.get("http://localhost:8000/users/auths", {
+          headers: auth.accessToken,
           signal: controller.signal,
         });
-        console.log(respone.data);
 
         if (isMounted) {
           setUser(respone.data);
@@ -22,6 +27,7 @@ function Users() {
         console.error(error);
       }
     };
+
     getUsers();
 
     return () => {

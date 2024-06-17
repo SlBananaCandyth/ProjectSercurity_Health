@@ -18,8 +18,6 @@ function Register() {
   const [encrypted_password, setPassword] = useState("");
   const [navigate, setNavaigate] = useState(false);
 
-  const error = false;
-
   const submit = async (e) => {
     e.preventDefault();
 
@@ -34,7 +32,7 @@ function Register() {
   const navigateHome = useNavigate();
 
   const handleLoginClick = () => {
-    navigateHome("/");
+    navigateHome("/login");
   };
   if (navigate) {
     return <Navigate to="/login" />;
