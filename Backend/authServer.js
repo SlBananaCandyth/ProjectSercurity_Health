@@ -1,15 +1,9 @@
-//SSL Certificate
-const fs = require("fs");
-const key = fs.readFileSync("./SSL/localhost/localhost.decrypted.key");
-const cert = fs.readFileSync("./SSL/localhost/localhost.crt");
-
 const express = require("express");
 const app = express();
 require("dotenv").config();
 
 const port = 8000;
 
-const https = require("https");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mysql = require("mysql2");
@@ -17,8 +11,6 @@ const mysql = require("mysql2");
 //JWT
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-
-// const server = https.createServer({ key, cert }, app);
 
 app.use(cors());
 app.use(express.static("public"));
