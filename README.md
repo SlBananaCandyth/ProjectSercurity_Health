@@ -1,5 +1,3 @@
-# Những thứ cần install trong cmd
-
 Install Git:
 git init
 git commit -m "first commit”
@@ -9,12 +7,12 @@ git push -u origin main
 
 Install React:
 npm install -g create-react-app
-npx create-react-app <project_name>
+npx create-react-app
 npm start
+*có bị lỗi react-script missing thì: npm install react-scripts --save
 
 Install mysql lib:
 npm install express 
-npm install express https
 npm install cors
 npm install body-parser --save 
 npm install nodemon 
@@ -31,3 +29,6 @@ npm i --save-dev nodemon
 Tạo secret key dùng node:
 node
 require('crypto').randomBytes(64).toString('hex')
+
+React HTTPS use:
+HTTPS=true SSL_CRT_FILE=cert.crt SSL_KEY_FILE=cert.key npm start
