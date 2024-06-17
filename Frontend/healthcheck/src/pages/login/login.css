@@ -1,16 +1,15 @@
 .demo-login {
-  width: 100%;
-  position: relative;
-  background-color: #fff;
-  height: 1024px;
-  overflow: hidden;
-  text-align: center;
-  font-size: 38px;
-  color: #e4dded;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-}
-
+    width: 100%;
+    position: relative;
+    background-color: #fff;
+    height: 1024px;
+    overflow: hidden;
+    text-align: center;
+    font-size: 38px;
+    color: #e4dded;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
+  
 .mapBackground {
   position: absolute;
   top: -28px;
@@ -72,6 +71,7 @@
   align-items: center;
   align-content: center;
   padding: 0.5% 0.8%;
+  
 }
 .lock {
   width: 30px;
@@ -83,15 +83,16 @@
   width: 20px;
   height: 20px;
   float: right;
-  padding: 0 5px 3px 5px;
+  padding: 0 5px 3px 5px ;
 }
-.input {
+.input{
   float: left;
-  border: none;
+  border: none; 
   background-color: transparent;
   outline: none;
   color: #e4dded;
 }
+
 
 .forgot-password {
   position: absolute;
@@ -106,21 +107,14 @@
   height: 16px;
 }
 
-.signin-button:hover {
-  background-color: #e8751a; /* Màu nền khi hover */
-  transform: scale(1.03); /* Phóng to nhẹ khi hover */
-}
 
-.sign-in {
-  position: absolute;
-  top: 3px;
-  left: calc(50% - 59.5px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 119px;
-  height: 37px;
-  box-sizing: border-box;
+.signin-button:hover {
+  transition: 400ms;
+  color: #e4dded;
+  background-color: #0c5dd6; /* Màu nền khi hover */
+  transform: scale(1.03); /*Phóng to nhẹ khi hover*/
+  border: none;
+  /* font-size: 20.5px; */
 }
 .signin-button {
   position: absolute;
@@ -132,7 +126,12 @@
   color: #080204;
   background-color: #e4dded;
   border-radius: 40px;
+  border: none;
+  transition: 400ms;
 }
+
+
+
 
 .dont-have-an-container1 {
   width: 100%;
@@ -150,3 +149,10 @@
 .register {
   color: #0e6cf9;
 }
+  
+  
+  
+  
+  
+  
+  
