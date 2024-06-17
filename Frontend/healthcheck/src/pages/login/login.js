@@ -3,27 +3,62 @@ import mapBackground from "../../icon/mapBackground.png";
 import mail from "../../icon/envelope-closed 1.svg";
 import lock from "../../icon/lock 1.svg";
 
-import { useState } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
+import AuthContext from "../../context/authProvider";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 
 function Login() {
+  const { setAuth } = useContext(AuthContext);
+  const userRef = useRef();
+  const errRef = useRef();
+
   const [user_email, setEmail] = useState("");
   const [encrypted_password, setPassword] = useState("");
   const [navigate, setNavaigate] = useState(false);
   const [navigateRegister, setNavaigateRegister] = useState(false);
+  const [success, setSucess] = useState(false);
+  const [errMsg, setErrMsg] = useState("");
+
+  useEffect(() => {
+    userRef.current.focus();
+  }, []);
+
+  useEffect(() => {
+    setErrMsg("");
+  }, [user_email, encrypted_password]);
 
   const submit = async (e) => {
     e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/users/login",
+        JSON.stringify({ user_email, encrypted_password }),
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
+      console.log(JSON.stringify(response?.data));
+      const accessToken = response?.data?.accessToken;
 
-    const {data} = await axios.post("http://localhost:8000/users/login", {
-      user_email,
-      encrypted_password,
-    });
-
-    axios.defaults.headers.common["Authorization"] = `Bearer ${data["accessToken"]}`;
-
-    setNavaigate(true);
+      setAuth({ user_email, encrypted_password, accessToken });
+      setEmail("");
+      setPassword("");
+      setSucess(true);
+      setNavaigate(true);
+    } catch (err) {
+      if (!err?.response) {
+        setErrMsg("Server is offline");
+      } else if (err.response?.status === 400) {
+        setErrMsg("Cannot find user");
+      } else if (err.response?.status === 401) {
+        setErrMsg("Unauthorized");
+      }else{
+        setErrMsg("Something went wrong");
+      }
+      errRef.current.focus();
+    }
   };
 
   if (navigate) {
@@ -48,13 +83,35 @@ function Login() {
 
           <b class="welcome-back">Welcome back</b>
 
+          <>
+            {success ? (
+              <section>
+                <h1>Logged in successfully</h1>
+              </section>
+            ) : (
+              <section>
+                <p
+                  ref={errRef}
+                  className={errMsg ? "errmsg" : "offscreen"}
+                  aria-live="assertive"
+                >
+                  {errMsg}
+                </p>
+              </section>
+            )}
+          </>
+
           <form onSubmit={submit}>
             <div class="email-input">
               <input
                 class="input"
-                type="email"
+                type="text"
                 placeholder="Email"
+                ref={userRef}
+                autoComplete="off"
                 onChange={(e) => setEmail(e.target.value)}
+                value={user_email}
+                required
               ></input>
               <img class="mail" alt="" src={mail}></img>
             </div>
@@ -65,6 +122,8 @@ function Login() {
                 type="password"
                 placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
+                value={encrypted_password}
+                required
               ></input>
               <img class="lock" alt="" src={lock}></img>
             </div>
