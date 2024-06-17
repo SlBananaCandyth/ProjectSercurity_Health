@@ -1,8 +1,12 @@
 import "./login.css";
-import mapBackground from "../../icon/mapBackground.png";
-import mail from "../../icon/envelope-closed 1.svg";
-import lock from "../../icon/lock 1.svg";
+import mapBackground from "../icon/mapBackground.png";
+import mail from "../icon/envelope-closed 1.svg";
+import lock from "../icon/lock 1.svg";
 
+import { useState, useRef, useEffect, useContext } from "react";
+import axios from "axios";
+import { Navigate } from "react-router-dom";
+import AuthContext  from "../../context/authProvider";
 
 function Login() {
   const { setAuth } = useContext(AuthContext);
@@ -50,7 +54,7 @@ function Login() {
         setErrMsg("Cannot find user");
       } else if (err.response?.status === 401) {
         setErrMsg("Unauthorized");
-      }else{
+      } else {
         setErrMsg("Something went wrong");
       }
       errRef.current.focus();
