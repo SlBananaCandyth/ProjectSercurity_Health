@@ -60,7 +60,7 @@ function Register() {
             </div>
 
             <button class="signin-button" type="submit">
-              Sign in
+              Register in
               {/* <div class="signin-button-child"></div>
             <b class="sign-in">sign in</b> */}
             </button>

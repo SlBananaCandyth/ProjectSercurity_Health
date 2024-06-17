@@ -87,6 +87,12 @@ app.post("/users/register", async (req, res) => {
   }
 });
 
+app.all("/users/login", (req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
+
 app.post("/users/login", async (req, res) => {
   var sql = "SELECT * FROM user WHERE user_email = ?";
   con.query(sql, [req.body.user_email], async function (err, results) {
