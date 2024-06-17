@@ -18,6 +18,8 @@ function Register() {
   const [encrypted_password, setPassword] = useState("");
   const [navigate, setNavaigate] = useState(false);
 
+  const error = false;
+
   const submit = async (e) => {
     e.preventDefault();
 

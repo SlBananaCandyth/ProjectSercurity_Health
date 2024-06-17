@@ -14,6 +14,8 @@ function Login() {
   const userRef = useRef();
   const errRef = useRef();
 
+  const error = false;
+
   const [user_email, setEmail] = useState("");
   const [encrypted_password, setPassword] = useState("");
   const [navigate, setNavaigate] = useState(false);
