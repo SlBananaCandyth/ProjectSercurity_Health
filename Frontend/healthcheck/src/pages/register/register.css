@@ -1,4 +1,4 @@
-.image-2-icon {
+.map {
     position: absolute;
     top: -28px;
     left: -240px;
@@ -75,78 +75,71 @@
     width: 564px;
     height: 42.7px;
 }
-.login-box-item {
+.lock2 {
     position: absolute;
-    top: calc(50% - 23px);
-    left: calc(50% - 265.2px);
-    width: 227px;
-    height: 39.9px;
+    width: 30px;
+    height: 30px;
 }
 .input2 {
     position: absolute;
-    top: calc(50% - 19.95px);
-    left: calc(50% - 113.5px); 
-    border-radius: 40px;
-    border: 3px solid #e4dded;
-    box-sizing: border-box;
-    width: 227px;
-    height: 39.9px;
-    display: grid;
-    grid-template-columns: 90% 10%;
-    align-items: center;
-    align-content: center;
-    padding: 0.5% 0.8%;
+    background-color: transparent;
+    width: 170px;
+    height: 40px;
+    outline: none;
+    border: none;
+    color: #e4dded;
 }
-.inputs{
-    width: auto;
-    height: auto;
-    display: inline-flex;
+.inputs1{
+    position:absolute;
+    top: 155px;
+    left: calc(50% - 245.13px);
+    width: 60%;
+    height: 40%;
+    display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
-    flex-direction: column;
+    gap: 10%;
     justify-content: center;
     align-items: center;
 }
 
 
 
-.group-item {
+.mail2 {
     position: absolute;
-    height: 37.59%;
-    width: 8.28%;
-    top: 36.03%;
-    right: 8.18%;
-    bottom: 26.38%;
-    left: 83.54%;
+    height: 20px;
+    width: 20px;
     max-width: 100%;
     overflow: hidden;
     max-height: 100%;
+    padding: 0 5px 3px 5px ;
 }
 .box {
+    border-radius: 40px;
+    border: 3px solid #e4dded;
+    box-sizing: border-box;
     width: 227px;
     height: 39.9px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0.5% 2.5% 0.5% 0.1%;
 }
-.login-box-inner {
+.name {
     position: absolute;
-    top: calc(50% + 57px);
-    left: calc(50% - 266.2px);
-    width: 227px;
-    height: 39.9px;
+    width: 25px;
+    height: 25px;
 }
-.group-icon {
+.age {
     position: absolute;
-    top: calc(50% + 57px);
-    left: calc(50% + 39.8px);
-    width: 227px;
-    height: 39.9px;
+    width: 20px;
+    height: 20px;
 }
 .height-icon {
     position: absolute;
-    height: 50.13%;
-    width: 7.49%;
-    top: 25.06%;
-    right: 7.93%;
-    bottom: 24.81%;
-    left: 84.58%;
+    height: 25px;
+    width: 25px;
     max-width: 100%;
     overflow: hidden;
     max-height: 100%;
@@ -158,12 +151,10 @@
     width: 227px;
     height: 39.9px;
 }
-.login-box-child1 {
+.weight {
     position: absolute;
-    top: calc(50% - 97px);
-    left: calc(50% + 39.8px);
-    width: 227px;
-    height: 39.9px;
+    width: 25px;
+    height: 25px;
 }
 .login-box {
     position: absolute;

@@ -1,9 +1,18 @@
 import "./Detail.css";
 import search from "./logos_figma/search.svg";
 import mapBackground from "./logos_figma/mapBackground.png";
-
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 function Detail(){
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://10.106.22.52:8081/all").then((response) => {
+      setItems(response.data);
+    });
+  }, []);
+
   
   return (
     <div className="container">
@@ -30,6 +39,19 @@ function Detail(){
           <div class="hr"></div> {/*Này là cái đường kẻ thẳng á, <hr> á*/}
           
           {/*Còn mấy cái div dưới là mấy cái ô hiển thị thông tin xuất ra*/}
+          <div className ="Details">
+        {items.map((item) => (
+          <div key={item.id} className="card-body">
+            <div>
+              <p>
+                ID: {item.id} Temperature: {item.temperature} Humid:{item.humid}{" "}
+                Date: {item.atTime}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+
           <div class="demo-detail-item"></div>
           <div class="demo-detail-inner"></div>
           <div class="rectangle-div"></div>
