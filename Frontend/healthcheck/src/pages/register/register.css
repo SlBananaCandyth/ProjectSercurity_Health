@@ -1,153 +1,186 @@
-.demo-login {
-  width: 100%;
-  position: relative;
-  background-color: #fff;
-  height: 1024px;
-  overflow: hidden;
-  text-align: center;
-  font-size: 38px;
-  color: #e4dded;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+.image-2-icon {
+    position: absolute;
+    top: -28px;
+    left: -240px;
+    width: 1920px;
+    height: 1080px;
+    object-fit: cover;
 }
-
-.mapBackground {
-  position: absolute;
-  top: -28px;
-  left: -240px;
-  width: 1920px;
-  height: 1080px;
-  object-fit: cover;
+.login-box-child {
+    position: absolute;
+    top: calc(50% - 264px);
+    left: calc(50% - 439.2px);
+    backdrop-filter: blur(10px);
+    border-radius: 40px;
+    background-color: rgba(228, 221, 237, 0.02);
+    border: 3.5px solid #e4dded;
+    box-sizing: border-box;
+    width: 878.4px;
+    height: 528px;
 }
-.demo-login-child {
-  position: absolute;
-  top: calc(50% - 284px);
-  left: calc(50% - 245px);
-  backdrop-filter: blur(10px);
-  border-radius: 40px;
-  background-color: rgba(228, 221, 237, 0.02);
-  border: 3.5px solid #e4dded;
-  box-sizing: border-box;
-  width: 489px;
-  height: 569px;
+.sign-in-child {
+    position: absolute;
+    top: calc(50% - 19.95px);
+    left: calc(50% - 126.95px);
+    border-radius: 40px;
+    background-color: #e4dded;
+    border: 3px solid #e4dded;
+    box-sizing: border-box;
+    width: 253.9px;
+    height: 39.9px;
 }
-
-.welcome-back {
-  position: absolute;
-  top: 299px;
-  left: calc(50% - 157px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 314px;
-  height: 74px;
+.sign-up {
+    position: absolute;
+    top: 2.78px;
+    left: calc(50% - 48.88px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 97.8px;
+    height: 34.3px;
 }
-
-.email-input {
-  position: absolute;
-  top: calc(50% - 102px);
-  left: calc(50% - 155px);
-  border-radius: 40px;
-  border: 3px solid #e4dded;
-  box-sizing: border-box;
-  width: 309px;
-  height: 43px;
-  display: grid;
-  grid-template-columns: 90% 10%;
-  align-items: center;
-  align-content: center;
-  padding: 0.5% 0.8%;
-}
-.password-input {
-  position: absolute;
-  top: calc(50% - 21px);
-  left: calc(50% - 155px);
-  border-radius: 40px;
-  border: 3px solid #e4dded;
-  box-sizing: border-box;
-  width: 309px;
-  height: 43px;
-  display: grid;
-  grid-template-columns: 90% 10%;
-  align-items: center;
-  align-content: center;
-  padding: 0.5% 0.8%;
-}
-.lock {
-  width: 30px;
-  height: 30px;
-  overflow: hidden;
-  float: right;
-}
-
-.mail {
-  width: 20px;
-  height: 20px;
-  float: right;
-  padding: 0 5px 3px 5px;
-}
-.input {
-  float: left;
-  border: none;
-  background-color: transparent;
-  outline: none;
-  color: #e4dded;
-}
-
-.forgot-password {
-  position: absolute;
-  top: 558px;
-  left: 760px;
-  font-size: 12px;
-  display: flex;
-  color: #fff;
-  align-items: center;
-  justify-content: center;
-  width: 112px;
-  height: 16px;
-}
-
-.signin-button:hover {
-  background-color: #e8751a; /* Màu nền khi hover */
-  transform: scale(1.03); /* Phóng to nhẹ khi hover */
-}
-
 .sign-in {
-  position: absolute;
-  top: 3px;
-  left: calc(50% - 59.5px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 119px;
-  height: 37px;
-  box-sizing: border-box;
+    position: absolute;
+    top: calc(50% + 139px);
+    left: calc(50% - 127.2px);
+    width: 253.9px;
+    height: 39.9px;
+    color: #080204;
 }
-.signin-button {
-  position: absolute;
-  top: calc(50% + 85px);
-  left: calc(50% - 157px);
-  width: 309px;
-  height: 43px;
-  font-size: 20px;
-  color: #080204;
-  background-color: #e4dded;
-  border-radius: 40px;
+.create-account {
+    position: absolute;
+    top: 65.88px;
+    left: calc(50% - 281.13px);
+    font-size: 38px;
+    display: flex;
+    font-family: Archivo;
+    align-items: center;
+    justify-content: center;
+    width: 564px;
+    height: 68.7px;
+}
+.login {
+    color: #0e6cf9;
+}
+.already-have-an-container1 {
+    width: 100%;
+}
+.already-have-an-container {
+    position: absolute;
+    top: 456px;
+    left: calc(50% - 281.2px);
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    width: 564px;
+    height: 42.7px;
+}
+.login-box-item {
+    position: absolute;
+    top: calc(50% - 23px);
+    left: calc(50% - 265.2px);
+    width: 227px;
+    height: 39.9px;
+}
+.input2 {
+    position: absolute;
+    top: calc(50% - 19.95px);
+    left: calc(50% - 113.5px);
+    border-radius: 40px;
+    border: 3px solid #e4dded;
+    box-sizing: border-box;
+    width: 227px;
+    height: 39.9px;
+    display: grid;
+    grid-template-columns: 90% 10%;
+    align-items: center;
+    align-content: center;
+    padding: 0.5% 0.8%;
+}
+.inputs{
+    width: auto;
+    height: auto;
+    display: inline-flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.dont-have-an-container1 {
-  width: 100%;
+
+
+.group-item {
+    position: absolute;
+    height: 37.59%;
+    width: 8.28%;
+    top: 36.03%;
+    right: 8.18%;
+    bottom: 26.38%;
+    left: 83.54%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
 }
-.dont-have-account {
-  position: absolute;
-  top: 651px;
-  left: calc(50% - 157px);
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  width: 314px;
-  height: 46px;
+.box {
+    width: 227px;
+    height: 39.9px;
 }
-.register {
-  color: #0e6cf9;
+.login-box-inner {
+    position: absolute;
+    top: calc(50% + 57px);
+    left: calc(50% - 266.2px);
+    width: 227px;
+    height: 39.9px;
 }
+.group-icon {
+    position: absolute;
+    top: calc(50% + 57px);
+    left: calc(50% + 39.8px);
+    width: 227px;
+    height: 39.9px;
+}
+.height-icon {
+    position: absolute;
+    height: 50.13%;
+    width: 7.49%;
+    top: 25.06%;
+    right: 7.93%;
+    bottom: 24.81%;
+    left: 84.58%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+}
+.rectangle-group {
+    position: absolute;
+    top: calc(50% - 23px);
+    left: calc(50% + 39.8px);
+    width: 227px;
+    height: 39.9px;
+}
+.login-box-child1 {
+    position: absolute;
+    top: calc(50% - 97px);
+    left: calc(50% + 39.8px);
+    width: 227px;
+    height: 39.9px;
+}
+.login-box {
+    position: absolute;
+    top: calc(50% - 264px);
+    left: calc(50% - 439px);
+    width: 878.4px;
+    height: 528px;
+}
+.register2 {
+    width: 100%;
+    position: relative;
+    background-color: #fff;
+    height: 1024px;
+    overflow: hidden;
+    text-align: center;
+    font-size: 20px;
+    color: #e4dded;
+    font-family: 'Anonymous Pro';
+}
+
