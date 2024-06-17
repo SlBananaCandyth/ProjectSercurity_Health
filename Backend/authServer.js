@@ -9,10 +9,26 @@ const cors = require("cors");
 const mysql = require("mysql2");
 
 //JWT
+const whitelist = [
+  "http://localhost:3000",
+  "http://localhost:8000",
+];
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  optionsSuccessStatus: 200,
+};
+
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.static("public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

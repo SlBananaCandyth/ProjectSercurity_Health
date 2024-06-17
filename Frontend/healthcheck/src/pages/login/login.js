@@ -36,7 +36,7 @@ function Login() {
         JSON.stringify({ user_email, encrypted_password }),
         {
           headers: { "Content-Type": "application/json" },
-          withCredentials: true,
+          withCredentials: false,
         }
       );
       console.log(JSON.stringify(response?.data));
