@@ -1,11 +1,22 @@
-.map {
-    position: absolute;
-    top: -28px;
-    left: -240px;
-    width: 1920px;
-    height: 1080px;
-    object-fit: cover;
+.register2 {
+    width: 100%;
+    position: relative;
+    background-color: #000000;
+    height: 100%;
+    overflow: hidden;
+    text-align: center;
+    font-size: 38px;
+    color: #e4dded;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', 'sans-serif';
+    background: url(../icon/mapBackground.png) no-repeat center center fixed; 
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
 .login-box-child {
     position: absolute;
     top: calc(50% - 264px);
@@ -15,13 +26,24 @@
     background-color: rgba(228, 221, 237, 0.02);
     border: 3.5px solid #e4dded;
     box-sizing: border-box;
-    width: 878.4px;
-    height: 528px;
+    width: 100%;
+    height: 100%;
 }
+
+.create-account {
+    position: absolute;
+    top: 65.88px;
+    left: calc(50% - 281.13px);
+    font-size: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 564px;
+    height: 68.7px;
+}
+
 .sign-in-child {
     position: absolute;
-    top: calc(50% - 19.95px);
-    left: calc(50% - 126.95px);
     border-radius: 40px;
     background-color: #e4dded;
     border: 3px solid #e4dded;
@@ -29,50 +51,41 @@
     width: 253.9px;
     height: 39.9px;
 }
-.sign-up {
+.signup-button {
     position: absolute;
-    top: 2.78px;
-    left: calc(50% - 48.88px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 97.8px;
-    height: 34.3px;
-}
-.sign-in {
-    position: absolute;
-    top: calc(50% + 139px);
-    left: calc(50% - 127.2px);
-    width: 253.9px;
-    height: 39.9px;
+    top: 360px;
+    left: calc(50% - 175px);
+    width: 350px;
+    height: 55px;
+    font-size: 20px;
     color: #080204;
+    background-color: #e4dded;
+    border-radius: 20px;
+    border: none;
+    transition: 400ms;
+    cursor: pointer;
+  }
+  .signup-button:hover {
+    transition: 400ms;
+    color: #e4dded;
+    background-color: #0031b7; /* Màu nền khi hover */
+    transform: scale(1.03); /*Phóng to nhẹ khi hover*/
+    border: none;
+    /* font-size: 20.5px; */
 }
-.create-account {
-    position: absolute;
-    top: 65.88px;
-    left: calc(50% - 281.13px);
-    font-size: 38px;
-    display: flex;
-    font-family: Archivo;
-    align-items: center;
-    justify-content: center;
-    width: 564px;
-    height: 68.7px;
-}
+
 .login {
-    color: #0e6cf9;
+    color: #c7ddff;
 }
-.already-have-an-container1 {
-    width: 100%;
-}
+
 .already-have-an-container {
     position: absolute;
-    top: 456px;
-    left: calc(50% - 281.2px);
+    top: 425px;
+    left: 330px;
     font-size: 16px;
     display: flex;
     align-items: center;
-    width: 564px;
+    width: 100%;
     height: 42.7px;
 }
 .lock2 {
@@ -83,7 +96,7 @@
 .input2 {
     position: absolute;
     background-color: transparent;
-    width: 170px;
+    width: 270px;
     height: 40px;
     outline: none;
     border: none;
@@ -91,19 +104,17 @@
 }
 .inputs1{
     position:absolute;
-    top: 155px;
-    left: calc(50% - 245.13px);
-    width: 60%;
+    top: 130px;
+    /* left: calc(50% - 245.13px); */
+    width: 100%;
     height: 40%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 10%;
+    gap: 2%;
     justify-content: center;
     align-items: center;
 }
-
-
 
 .mail2 {
     position: absolute;
@@ -112,19 +123,19 @@
     max-width: 100%;
     overflow: hidden;
     max-height: 100%;
-    padding: 0 5px 3px 5px ;
 }
 .box {
-    border-radius: 40px;
+    border-radius: 20px;
     border: 3px solid #e4dded;
     box-sizing: border-box;
-    width: 227px;
-    height: 39.9px;
+    width: 350px;
+    height: 55px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
-    padding: 0.5% 2.5% 0.5% 0.1%;
+    grid-template-columns: 90% 10%;
+    padding: 0.5% 5%;
 }
 .name {
     position: absolute;
@@ -144,13 +155,7 @@
     overflow: hidden;
     max-height: 100%;
 }
-.rectangle-group {
-    position: absolute;
-    top: calc(50% - 23px);
-    left: calc(50% + 39.8px);
-    width: 227px;
-    height: 39.9px;
-}
+
 .weight {
     position: absolute;
     width: 25px;
@@ -161,17 +166,7 @@
     top: calc(50% - 264px);
     left: calc(50% - 439px);
     width: 878.4px;
-    height: 528px;
+    height: 540px;
 }
-.register2 {
-    width: 100%;
-    position: relative;
-    background-color: #fff;
-    height: 1024px;
-    overflow: hidden;
-    text-align: center;
-    font-size: 20px;
-    color: #e4dded;
-    font-family: 'Anonymous Pro';
-}
+
 
