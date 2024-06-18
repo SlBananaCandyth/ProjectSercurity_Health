@@ -1,5 +1,4 @@
 import "./login.css";
-import mapBackground from "../icon/mapBackground.png";
 import mail from "../icon/envelope-closed 1.svg";
 import lock from "../icon/lock 1.svg";
 
@@ -71,16 +70,11 @@ function Login() {
   return (
     <div className="container">
       <div class="demo-login">
-        <img class="mapBackground" alt="" src={mapBackground}></img>
-
-        <div class="demo-login-child"></div>
-
-        <b class="welcome-back">Welcome back</b>
-
-        <form onSubmit={submit}>
+        <div class="demo-login-child">
+          <b class="welcome-back">WELCOME BACK</b>
+          <form onSubmit={submit}>
           <div class="email-input">
-            <input
-              class="input"
+            <input class="input"
               type="text"
               placeholder="Email"
               ref={userRef}
@@ -104,24 +98,17 @@ function Login() {
             <img class="lock" alt="" src={lock}></img>
           </div>
 
-          <button class="signin-button" type="submit">
-            Sign in
-            {/* <div class="signin-button-child"></div>
-            <b class="sign-in">sign in</b> */}
-          </button>
+          <button class="signin-button" type="submit">Sign in</button>
         </form>
-
+        <b class="forgot-password">Forgot password?</b>
         <b class="dont-have-account">
           <span class="dont-have-an-container1">
-            <span>Don’t have an account? </span>
-            <span class="register" onClick={handleRegisterClick}>
-              Register
-            </span>
+            <span class="register" onClick={handleRegisterClick}>Don’t have an account? </span>
           </span>
         </b>
-        <b class="forgot-password">Forgot password?</b>
       </div>
     </div>
+  </div>
   );
 }
 
