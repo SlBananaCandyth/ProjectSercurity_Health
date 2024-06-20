@@ -6,6 +6,7 @@ import Login from "./pages/login/login";
 import Register from "./pages/register/register";
 import Home from "./pages/home/home";
 import Users from "./pages/users/users";
+import Detail from "./pages/Detail/detail"
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route exact path="/" element={<Home />} />
             <Route exact path="/register" element={<Register />} />
             <Route exact path="/login" element={<Login />} />
+            <Route exact path="/detail" element={<Detail />} />
 
             {/*Protected routes*/}
             <Route element={<RequireAuth />}>
