@@ -59,7 +59,7 @@ INSERT INTO record VALUES (id, 0.03, 29.8, '-57.50958,-131.085724', 40, 27, '202
 
 
 -- select zone --
-SELECT * FROM user;
+SELECT * FROM user WHERE user_email = "phu@danghomp.com";
 SELECT * FROM record;
 
 

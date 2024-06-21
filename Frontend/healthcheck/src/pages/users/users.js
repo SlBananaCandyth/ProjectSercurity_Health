@@ -13,7 +13,7 @@ function Users() {
   useEffect(() => {
     let isMounted = true;
     const controller = new AbortController();
-    console.log(auth);
+    // console.log(auth);
 
     const getUsers = async () => {
       try {

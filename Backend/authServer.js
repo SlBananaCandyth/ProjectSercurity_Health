@@ -9,10 +9,7 @@ const cors = require("cors");
 const mysql = require("mysql2");
 
 //JWT
-const whitelist = [
-  "http://localhost:3000",
-  "http://localhost:8000",
-];
+const whitelist = ["http://localhost:3000", "http://localhost:8000"];
 
 const corsOptions = {
   origin: (origin, callback) => {
@@ -61,8 +58,11 @@ con.connect(function (err) {
 //WebAPI
 let refreshTokens = [];
 
-app.post("/users/token", (req, res) => {
-  const refreshToken = req.body.refreshToken;
+app.post("/users/token", async (req, res) => {
+  const cookies = req.cookies;
+  if(!cookies?.jwt) return res.sendStatus(401);
+  const refreshToken = cookies.jwt;
+  res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
 
   if (refreshToken == null) return res.sendStatus(401);
   if (!refreshTokens.includes(refreshToken)) return res.sendStatus(403);
@@ -126,7 +126,9 @@ app.post("/users/login", async (req, res) => {
         };
 
         const accessToken = generateAccessToken(user);
-        const refreshToken = jwt.sign(user, process.env.REFRESH_SECRET_TOKEN , { expiresIn: "1h" });
+        const refreshToken = jwt.sign(user, process.env.REFRESH_SECRET_TOKEN, {
+          expiresIn: "1h",
+        });
 
         refreshTokens.push(refreshToken);
         res.json({ accessToken: accessToken, refreshToken: refreshToken });

@@ -17,7 +17,7 @@ function Login() {
   const userRef = useRef();
   const errRef = useRef();
 
-  const [user_email, setEmail] = useState("");
+  const [user_email, setEmail] = useState([""]);
   const [encrypted_password, setPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
 
@@ -48,6 +48,10 @@ function Login() {
       setAuth({ user_email, encrypted_password, accessToken, refreshToken });
       setEmail("");
       setPassword("");
+
+      window.localStorage.setItem("user", JSON.stringify({ user_email, encrypted_password, accessToken, refreshToken }));
+      // let user = JSON.parse(localStorage.getItem("user"));
+      // console.log("user: " + JSON.stringify(user));
 
       navigate(from, { replace: true });
     } catch (err) {
