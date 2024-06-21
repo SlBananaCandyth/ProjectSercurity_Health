@@ -1,10 +1,14 @@
 import { useEffect, useState, useContext } from "react";
-import axios from "axios";
 import AuthContext from "../../context/authProvider";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function Users() {
   const [user, setUser] = useState([]);
   const { auth } = useContext(AuthContext);
+  const axiosPrivate = useAxiosPrivate();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     let isMounted = true;
@@ -13,9 +17,7 @@ function Users() {
 
     const getUsers = async () => {
       try {
-        console.log(auth.accessToken);
-
-        const respone = await axios.get("http://localhost:8000/users/auths", {
+        const respone = await axiosPrivate.get("/users/auths", {
           headers: {
             Authorization: `Bearer ${auth.accessToken}`,
           },
@@ -27,6 +29,7 @@ function Users() {
         }
       } catch (error) {
         console.error(error);
+        navigate("/login", { state: { from: location }, replace: true });
       }
     };
 

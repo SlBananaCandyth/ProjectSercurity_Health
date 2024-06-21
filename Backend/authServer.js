@@ -62,11 +62,14 @@ con.connect(function (err) {
 let refreshTokens = [];
 
 app.post("/users/token", (req, res) => {
-  const refreshToken = req.body.token;
+  const refreshToken = req.body.refreshToken;
+
   if (refreshToken == null) return res.sendStatus(401);
   if (!refreshTokens.includes(refreshToken)) return res.sendStatus(403);
+
   jwt.verify(refreshToken, process.env.REFRESH_SECRET_TOKEN, (err, user) => {
     if (err) return res.sendStatus(403);
+
     const accessToken = generateAccessToken({ email: user.email });
     res.json({ accessToken: accessToken });
   });
@@ -123,7 +126,7 @@ app.post("/users/login", async (req, res) => {
         };
 
         const accessToken = generateAccessToken(user);
-        const refreshToken = jwt.sign(user, process.env.REFRESH_SECRET_TOKEN);
+        const refreshToken = jwt.sign(user, process.env.REFRESH_SECRET_TOKEN , { expiresIn: "1h" });
 
         refreshTokens.push(refreshToken);
         res.json({ accessToken: accessToken, refreshToken: refreshToken });

@@ -40,15 +40,16 @@ function Login() {
           withCredentials: false,
         }
       );
-      console.log(JSON.stringify(response?.data));
+      // console.log(JSON.stringify(response?.data));
       const accessToken = response?.data?.accessToken;
-      console.log(accessToken);
+      const refreshToken = response?.data?.refreshToken;
+      // console.log(accessToken);
 
-      setAuth({ user_email, encrypted_password, accessToken });
+      setAuth({ user_email, encrypted_password, accessToken, refreshToken });
       setEmail("");
       setPassword("");
 
-      navigate("../users");
+      navigate(from, { replace: true });
     } catch (err) {
       if (!err?.response) {
         setErrMsg("Server is offline");
