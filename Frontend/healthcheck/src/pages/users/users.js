@@ -16,7 +16,9 @@ function Users() {
         console.log(auth.accessToken);
 
         const respone = await axios.get("http://localhost:8000/users/auths", {
-          headers: auth.accessToken,
+          headers: {
+            Authorization: `Bearer ${auth.accessToken}`,
+          },
           signal: controller.signal,
         });
 

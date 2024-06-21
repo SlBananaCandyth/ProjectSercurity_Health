@@ -40,7 +40,7 @@ function Login() {
           withCredentials: false,
         }
       );
-      // console.log(JSON.stringify(response?.data));
+      console.log(JSON.stringify(response?.data));
       const accessToken = response?.data?.accessToken;
       console.log(accessToken);
 
@@ -48,7 +48,7 @@ function Login() {
       setEmail("");
       setPassword("");
 
-      navigate(from);
+      navigate("../users");
     } catch (err) {
       if (!err?.response) {
         setErrMsg("Server is offline");
