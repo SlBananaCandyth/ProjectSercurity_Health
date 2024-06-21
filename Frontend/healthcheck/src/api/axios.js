@@ -3,6 +3,9 @@ const BASE_URL = "http://localhost:8000";
 
 export default axios.create({
   baseURL: BASE_URL,
+  withCredentials: true,
+  xsrfCookieName: "XSRF-TOKEN",
+  xsrfHeaderName: "X-XSRF-TOKEN",
 });
 
 export const axiosPrivate = axios.create({
@@ -10,5 +13,8 @@ export const axiosPrivate = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-  withCredentials: false,
+  withCredentials: true,
+  xsrfCookieName: "XSRF-TOKEN",
+  xsrfHeaderName: "X-XSRF-TOKEN",
+  
 });

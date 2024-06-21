@@ -33,11 +33,12 @@ function Login() {
     e.preventDefault();
     try {
       const response = await axiosPrivate.post(
-        "http://localhost:8000/users/login",
+        "/users/login",
         JSON.stringify({ user_email, encrypted_password }),
         {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: false,
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
       );
       // console.log(JSON.stringify(response?.data));
@@ -49,7 +50,15 @@ function Login() {
       setEmail("");
       setPassword("");
 
-      window.localStorage.setItem("user", JSON.stringify({ user_email, encrypted_password, accessToken, refreshToken }));
+      window.localStorage.setItem(
+        "user",
+        JSON.stringify({
+          user_email,
+          encrypted_password,
+          accessToken,
+          refreshToken,
+        })
+      );
       // let user = JSON.parse(localStorage.getItem("user"));
       // console.log("user: " + JSON.stringify(user));
 

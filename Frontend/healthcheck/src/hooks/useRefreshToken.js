@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../api/axios";
 import useAuth from "./useAuth";
 import { useEffect } from "react";
 
@@ -7,11 +7,12 @@ const useRefreshToken = () => {
 
   const refresh = async () => {
     const response = await axios.post(
-      "http://localhost:8000/users/token",
+      "users/token",
       JSON.stringify({ refreshToken: auth.refreshToken }),
       {
-        headers: { "Content-Type": "application/json" },
-        withCredentials: false,
+        headers: {
+          "Content-Type": "application/json",
+        },
       }
     );
     const accessToken = response?.data?.accessToken;
@@ -25,9 +26,6 @@ const useRefreshToken = () => {
         accessToken: accessToken,
       };
     });
-
-    console.log("user new: " + JSON.stringify(auth));
-
     return accessToken;
   };
 
