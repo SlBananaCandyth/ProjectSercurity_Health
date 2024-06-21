@@ -8,7 +8,7 @@ import { Navigate, Link, useNavigate, useLocation } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
 function Login() {
-  const { setAuth } = useAuth();
+  const { setAuth, persist, setPersist } = useAuth();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -74,42 +74,47 @@ function Login() {
         <div class="demo-login-child">
           <b class="welcome-back">WELCOME BACK</b>
           <form onSubmit={submit}>
-          <div class="email-input">
-            <input class="input"
-              type="text"
-              placeholder="Email"
-              ref={userRef}
-              autoComplete="off"
-              onChange={(e) => setEmail(e.target.value)}
-              value={user_email}
-              required
-            ></input>
-            <img class="mail" alt="" src={mail}></img>
-          </div>
+            <div class="email-input">
+              <input
+                class="input"
+                type="text"
+                placeholder="Email"
+                ref={userRef}
+                autoComplete="off"
+                onChange={(e) => setEmail(e.target.value)}
+                value={user_email}
+                required
+              ></input>
+              <img class="mail" alt="" src={mail}></img>
+            </div>
 
-          <div class="password-input">
-            <input
-              class="input"
-              type="password"
-              placeholder="Password"
-              onChange={(e) => setPassword(e.target.value)}
-              value={encrypted_password}
-              required
-            ></input>
-            <img class="lock" alt="" src={lock}></img>
-          </div>
+            <div class="password-input">
+              <input
+                class="input"
+                type="password"
+                placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
+                value={encrypted_password}
+                required
+              ></input>
+              <img class="lock" alt="" src={lock}></img>
+            </div>
 
-          <button class="signin-button" type="submit">Sign in</button>
-        </form>
-        <b class="forgot-password">Forgot password?</b>
-        <b class="dont-have-account">
-          <span class="dont-have-an-container1">
-            <span class="register" onClick={handleRegisterClick}>Don’t have an account? </span>
-          </span>
-        </b>
+            <button class="signin-button" type="submit">
+              Sign in
+            </button>
+          </form>
+          <b class="forgot-password">Forgot password?</b>
+          <b class="dont-have-account">
+            <span class="dont-have-an-container1">
+              <span class="register" onClick={handleRegisterClick}>
+                Don’t have an account?{" "}
+              </span>
+            </span>
+          </b>
+        </div>
       </div>
     </div>
-  </div>
   );
 }
 

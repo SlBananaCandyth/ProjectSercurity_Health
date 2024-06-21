@@ -37,7 +37,7 @@ function Users() {
 
     return () => {
       isMounted = false;
-      controller.abort();
+      isMounted && controller.abort();
     };
   }, []);
 
