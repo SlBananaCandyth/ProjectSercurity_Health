@@ -3,9 +3,9 @@ import mail from "../icon/envelope-closed 1.svg";
 import lock from "../icon/lock 1.svg";
 
 import { useState, useEffect, useRef, useContext } from "react";
-import axios from "axios";
 import { Navigate, Link, useNavigate, useLocation } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import { axiosPrivate } from "../../api/axios";
 
 function Login() {
   const { setAuth, persist, setPersist } = useAuth();
@@ -32,7 +32,7 @@ function Login() {
   const submit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
+      const response = await axiosPrivate.post(
         "http://localhost:8000/users/login",
         JSON.stringify({ user_email, encrypted_password }),
         {

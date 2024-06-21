@@ -59,10 +59,7 @@ con.connect(function (err) {
 let refreshTokens = [];
 
 app.post("/users/token", async (req, res) => {
-  const cookies = req.cookies;
-  if(!cookies?.jwt) return res.sendStatus(401);
-  const refreshToken = cookies.jwt;
-  res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
+  const refreshToken = req.body.refreshToken;
 
   if (refreshToken == null) return res.sendStatus(401);
   if (!refreshTokens.includes(refreshToken)) return res.sendStatus(403);
@@ -71,7 +68,7 @@ app.post("/users/token", async (req, res) => {
     if (err) return res.sendStatus(403);
 
     const accessToken = generateAccessToken({ email: user.email });
-    res.json({email: user.user_email, accessToken: accessToken });
+    res.json({ email: user.user_email, accessToken: accessToken });
   });
 });
 
@@ -108,6 +105,8 @@ app.post("/users/register", async (req, res) => {
 
 app.post("/users/login", async (req, res) => {
   var sql = "SELECT * FROM user WHERE user_email = ?";
+  var sqlUpdate = "UPDATE user SET refresh_token = ? WHERE user_email = ?";
+
   con.query(sql, [req.body.user_email], async function (err, results) {
     if (err) throw err;
     if (results.length == 0) {
@@ -129,6 +128,17 @@ app.post("/users/login", async (req, res) => {
         const refreshToken = jwt.sign(user, process.env.REFRESH_SECRET_TOKEN, {
           expiresIn: "1h",
         });
+
+        con.query(
+          sqlUpdate,
+          [refreshToken, req.body.user_email],
+          function (err, results) {
+            if (err) throw err;
+            if (results.affectedRows == 0) {
+              return res.status(400).send("Cannot find user");
+            }
+          }
+        );
 
         refreshTokens.push(refreshToken);
         res.json({ accessToken: accessToken, refreshToken: refreshToken });

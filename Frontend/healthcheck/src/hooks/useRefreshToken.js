@@ -22,10 +22,11 @@ const useRefreshToken = () => {
       console.log(accessToken);
       return {
         ...prev,
-        user_email: response.data.user_email,
         accessToken: accessToken,
       };
     });
+
+    console.log("user new: " + JSON.stringify(auth));
 
     return accessToken;
   };
