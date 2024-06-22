@@ -1,4 +1,5 @@
 import "./detail.css";
+// import Navbar from "../../components/navbar"
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 // import InfiniteScroll from 'react-infinite-scroller';
@@ -15,6 +16,8 @@ function Detail() {
   return (
     <div id="container">
       <div id="demo-detail">
+        {/* <Navbar/> */}
+
         {/* Nay là hàng chữ nội dung á (record_time đồ)     */}
         <div id="contents">
           <div class="column1">Record_time</div>
