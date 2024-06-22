@@ -18,6 +18,7 @@ const corsConfig = {
 
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
 
 app.use(cors(corsConfig));
 app.options("*", cors(corsConfig));
@@ -25,6 +26,7 @@ app.use(express.static("public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cookieParser());
 
 //Database connection
 const password = "danghomp69";
@@ -67,6 +69,7 @@ app.get("/users/token", async (req, res) => {
   // });
   const cookies = req.cookies;
   if (!cookies?.jwt) return res.sendStatus(401);
+  console.log(cookies.jwt);
   const refreshToken = cookies.jwt;
   res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true });
 
