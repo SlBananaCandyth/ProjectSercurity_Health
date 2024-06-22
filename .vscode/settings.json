@@ -25,6 +25,19 @@
             "name": "security_project",
             "username": "root",
             "database": "health_user_db"
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "health_care",
+            "database": "health_user_db",
+            "username": "root"
         }
     ]
 }
